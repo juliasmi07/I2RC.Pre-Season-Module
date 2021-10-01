@@ -9,21 +9,16 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrain;
 
-public class TankDrive extends CommandBase {
-
-  private final DriveTrain _driveTrain;
-  private final Joystick _leftJoystick;
-  private final Joystick _rightJoystick;
-  
-  /** Creates a new TankDrive. */
-  public TankDrive(DriveTrain dt, Joystick lj, Joystick rj) {
+public class AracdeDrive extends CommandBase {
+  public DriveTrain _DT;
+  public Joystick _cow;
+  /** Creates a new AracdeDrive. */
+  public AracdeDrive(DriveTrain dt, Joystick js) {
     // Use addRequirements() here to declare subsystem dependencies.
-    _driveTrain = dt;
-    _leftJoystick = lj;
-    _rightJoystick = rj;
-
-    addRequirements(_driveTrain);
-  } 
+    _DT = dt; 
+    _cow = js;
+    addRequirements(_DT);
+  }
 
   // Called when the command is initially scheduled.
   @Override
@@ -32,8 +27,9 @@ public class TankDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    _driveTrain.tankDrive(-0.8 * _leftJoystick.getRawAxis(Constants.JoystickAxis.YAxis),
-                          -0.8 * _rightJoystick.getRawAxis(Constants.JoystickAxis.YAxis));
+    double speed = -0.7*_cow.getRawAxis(Constants.JoystickAxis.YAxis);
+    double turn = 0.7 *_cow.getRawAxis(Constants.JoystickAxis.XAxis);
+    _DT.arcadeDrive(speed, turn);
   }
 
   // Called once the command ends or is interrupted.
@@ -45,4 +41,5 @@ public class TankDrive extends CommandBase {
   public boolean isFinished() {
     return false;
   }
+
 }
