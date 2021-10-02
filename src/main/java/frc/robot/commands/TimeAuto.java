@@ -29,8 +29,10 @@ public class TimeAuto extends CommandBase {
   @Override
   public void execute() {
     if (timedAuto.get() <= 3){
-      dt.tankDrive(1, 1);
-    }else{
+      dt.tankDrive(.8, .8);
+    }
+    
+    if (timedAuto.get() > 5){
       dt.tankDrive(0, 0);
     }
   }
@@ -42,6 +44,6 @@ public class TimeAuto extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return timedAuto.get() > 5;
   }
 }
